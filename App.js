@@ -11,7 +11,13 @@ export default function App() {
   return (
       <NavigationContainer>
           <Stack.Navigator initialRouteName = 'Welcome'>
-
+               <Stack.Screen
+                  name = "Login"
+                  component = {Login}
+                  options = {{
+                      headerShown: false
+                  }}
+                />
                 <Stack.Screen
                   name = "Signup"
                   component = {Signup}
@@ -19,13 +25,7 @@ export default function App() {
                       headerShown: false
                   }}
                 />
-                <Stack.Screen
-                  name = "Login"
-                  component = {Login}
-                  options = {{
-                      headerShown: false
-                  }}
-                />
+
           </Stack.Navigator>
       </NavigationContainer>
   );

@@ -15,9 +15,9 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import { useTheme } from 'react-native-paper';
 
-import { AuthContext } from '../components/context';
+// import { AuthContext } from '../components/context';
 
-
+// import Users from '../model/users';
 
 const Login = ({navigation}) => {
 
@@ -32,7 +32,7 @@ const Login = ({navigation}) => {
 
     const { colors } = useTheme();
 
-  
+    // const { signIn } = React.useContext(AuthContext);
 
     // const textInputChange = (val) => {
     //     if( val.trim().length >= 4 ) {
@@ -68,12 +68,12 @@ const Login = ({navigation}) => {
     //     }
     // }
 
-    // const updateSecureTextEntry = () => {
-    //     setData({
-    //         ...data,
-    //         secureTextEntry: !data.secureTextEntry
-    //     });
-    // }
+    const updateSecureTextEntry = () => {
+        setData({
+            ...data,
+            secureTextEntry: !data.secureTextEntry
+        });
+    }
 
     // const handleValidUser = (val) => {
     //     if( val.trim().length >= 4 ) {
@@ -142,7 +142,7 @@ const Login = ({navigation}) => {
                     // onChangeText={(val) => textInputChange(val)}
                     // onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
                 />
-                {/* {data.check_textInputChange ?  */}
+                {data.check_textInputChange ? 
                 <Animatable.View
                     animation="bounceIn"
                 >
@@ -152,9 +152,13 @@ const Login = ({navigation}) => {
                         size={20}
                     />
                 </Animatable.View>
-    
+                : null}
             </View>
-
+            {/* { data.isValidUser ? null : 
+            <Animatable.View animation="fadeInLeft" duration={500}>
+            <Text style={styles.errorMsg}>Username must be 4 characters long.</Text>
+            </Animatable.View>
+            } */}
             
 
             <Text style={[styles.text_footer, {
@@ -170,7 +174,7 @@ const Login = ({navigation}) => {
                 <TextInput 
                     placeholder="Your Password"
                     placeholderTextColor="#666666"
-                    // secureTextEntry={data.secureTextEntry ? true : false}
+                    secureTextEntry={data.secureTextEntry ? true : false}
                     style={[styles.textInput, {
                         color: colors.text
                     }]}
@@ -178,29 +182,29 @@ const Login = ({navigation}) => {
                     // onChangeText={(val) => handlePasswordChange(val)}
                 />
                 <TouchableOpacity
-                    // onPress={updateSecureTextEntry}
+                    onPress={updateSecureTextEntry}
                 >
-                    {/* {data.secureTextEntry ?  */}
+                    {data.secureTextEntry ? 
                     <Feather 
                         name="eye-off"
                         color="grey"
                         size={20}
                     />
-                    {/* :
+                    :
                     <Feather 
                         name="eye"
                         color="grey"
                         size={20}
                     />
-                    } */}
+                    }
                 </TouchableOpacity>
             </View>
             {/* { data.isValidPassword ? null : 
             <Animatable.View animation="fadeInLeft" duration={500}>
             <Text style={styles.errorMsg}>Password must be 8 characters long.</Text>
             </Animatable.View>
-            }
-             */}
+            } */}
+             
 
             <TouchableOpacity>
                 <Text style={{color: '#009387', marginTop:15, marginLeft:250}}>Forgot password?</Text>
@@ -216,12 +220,12 @@ const Login = ({navigation}) => {
                 >
                     <Text style={[styles.textSign, {
                         color:'#fff'
-                    }]}>Sign In</Text>
+                    }]}>Login</Text>
                 </LinearGradient>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    // onPress={() => navigation.navigate('Signup')}
+                    onPress={() => navigation.navigate('Signup')}
                     style={[styles.signIn, {
                         borderColor: '#00A9FF',
                         borderWidth: 1,
@@ -230,7 +234,7 @@ const Login = ({navigation}) => {
                 >
                     <Text style={[styles.textSign, {
                         color: '#00A9FF'
-                    }]}>Sign Up</Text>
+                    }]}>Signup</Text>
                 </TouchableOpacity>
             </View>
         </Animatable.View>
