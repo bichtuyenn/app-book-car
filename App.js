@@ -1,4 +1,3 @@
-// In App.js in a new project
 
 import * as React from 'react';
 import { View, Text } from 'react-native';
@@ -12,16 +11,17 @@ export default function App() {
   return (
       <NavigationContainer>
           <Stack.Navigator initialRouteName = 'Welcome'>
+
                 <Stack.Screen
-                  name = "Login"
-                  component = {Login}
+                  name = "Signup"
+                  component = {Signup}
                   options = {{
                       headerShown: false
                   }}
                 />
                 <Stack.Screen
-                  name = "Signup"
-                  component = {Signup}
+                  name = "Login"
+                  component = {Login}
                   options = {{
                       headerShown: false
                   }}
