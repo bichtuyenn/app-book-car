@@ -210,6 +210,7 @@ const Login = ({navigation}) => {
                 <Text style={{color: '#009387', marginTop:15, marginLeft:250}}>Forgot password?</Text>
             </TouchableOpacity>
             <View style={styles.button}>
+                
                 <TouchableOpacity
                     style={styles.signIn}
                     // onPress={() => {loginHandle( data.username, data.password )}}
