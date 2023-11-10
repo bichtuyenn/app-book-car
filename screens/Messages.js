@@ -40,7 +40,7 @@ const conversations = [
       },
     
   ];
-  const MessageList = ({ navigation }) => {
+  const Messages = ({ navigation }) => {
     const [isChatSelected, setIsChatSelected] = useState(true);
     const [isNotificationSelected, setIsNotificationSelected] = useState(false);
    
@@ -156,4 +156,4 @@ const conversations = [
     },
   });
   
-  export default MessageList;
+  export default Messages;

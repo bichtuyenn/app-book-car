@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Login, Signup, Welcome } from './screens';
-import MessageList from './screens/Message';
+import MessageList from './screens/Messages';
 import NotificationList from './screens/Notification'; // Thêm import này
 const Stack = createNativeStackNavigator();
 
