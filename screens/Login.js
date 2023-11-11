@@ -1,88 +1,177 @@
-// import React, { useState,useContext } from 'react';
-// import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput,Alert } from 'react-native';
-// import { useNavigation } from '@react-navigation/native';
-// import {AuthContext} from './AuthContext';
+import React, { useState, useContext} from 'react';
+import { StatusBar } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput,Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import {AuthContext} from './AuthContext';
+import * as Animatable from 'react-native-animatable';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { LinearGradient } from "expo-linear-gradient";
+import { useTheme } from 'react-native-paper';
+import Feather from 'react-native-vector-icons/Feather';
 
-// const Login = () => {
+const Login = () => {
+  const { colors } = useTheme();
 
-//   const navigation = useNavigation();
+  const navigation = useNavigation();
   
-//   const {email , setEmail,password,setPassword,isAuthenticated,setisAuthenticated} = useContext(AuthContext);
+  const {email , setEmail,password,setPassword,isAuthenticated,setisAuthenticated} = useContext(AuthContext);
 
-//   const handleLogin = (email, password) => {
-//     if (email === '20522134@gm.uit.edu.vn' && password === 'huynhthibichtuyen') {
-//         setisAuthenticated(true);
-//     } else {
-//         Alert.alert('Warning', 'incorrect email or password.');
-//     };
-//   };
-//   const handleOnPressSignup = () => {
-//     navigation.navigate('Signup');
-//   };
+  const handleLogin = (email, password) => {
+    if (email === '20522134@gm.uit.edu.vn' && password === 'huynhthibichtuyen') {
+        setisAuthenticated(true);
+    } else {
+        Alert.alert('Warning', 'incorrect email or password.');
+    };
+  };
+  const handleOnPressSignup = () => {
+    navigation.navigate('Signup');
+  };
 
-//   return (
-//     <View >
-//     <Image
-//       style={styles.imageStyle}
-//       source={{ uri: 'https://internet-israel.com/wp-content/uploads/2018/07/React_Native_Logo-768x403.png' }}
-//     />
-//     <Text style={styles.text}>Welcome</Text>
-//     <View style={styles.containerTextInput}>
-//       <Image style={styles.imageTextInput}
-//         source={{ uri: 'https://clipground.com/images/email-icon-clipart-transparent-1.png' }}>
-//       </Image>
-//       <TextInput
-//         style={styles.textI}
-//         placeholder="Email"
-//         value={email}
-//         onChangeText={setEmail}
-//       />
-//     </View>
-//     <View style={styles.containerTextInput}>
-//       <Image style={styles.imageTextInput}
-//         source={{ uri: 'https://tse1.mm.bing.net/th?id=OIP.PO4tSlis-6R6EjopPKu0xQHaEH&pid=Api&P=0&h=220' }}>
-//       </Image>
-//       <TextInput
-//         style={styles.textI}
-//         placeholder="Password"
-//         value={password}
-//         onChangeText={setPassword}
-//       />
-//     </View>
-//     <View style={styles.forgotContainer}>
-//       <Text style={styles.Forgot}>Forgot password?</Text>
-//     </View>
-//     <TouchableOpacity style={styles.button} onPress={() => handleLogin(email, password)} >
-//       <Text style={styles.textLogin}>LOG IN</Text>
-//     </TouchableOpacity>
-//     <Text style={styles.text}> Or login with</Text>
+  return (
+    <View style={styles.container}>
+      <StatusBar backgroundColor='#00A9FF' barStyle="light-content"/>
+      <View style={styles.header}>
+          <Text style={styles.text_header}>Welcome!</Text>
+      </View>
+      
+      <Animatable.View 
+            animation="fadeInUpBig"
+            style={[styles.footer, {
+                backgroundColor: colors.background
+            }]}
+      > 
+         <Text style={[styles.text_footer, {
+                color: colors.text
+          }]}>Username
+          </Text>
+          <View style={styles.action}>
+                <FontAwesome 
+                    name="user-o"
+                    color={colors.text}
+                    size={20}
+                />
+            <TextInput
+                    placeholder="Your email"
+                    placeholderTextColor="#666666"
+                    style={[styles.textInput, {
+                        color: colors.text
+                    }]}
+                    value={email}
+                    autoCapitalize="none"
+                    onChangeText={setEmail}
+            />
+            <Animatable.View
+                    animation="bounceIn"
+                >
+                    <Feather 
+                        name="check-circle"
+                        color="green"
+                        size={20}
+                    />
+                </Animatable.View>
+        </View>
+      
 
-//     <View style={styles.imageContainer}>
-//       <Image
-//         style={styles.imageLogo}
-//         source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png' }}
-//       />
-//       <Image
-//         style={styles.imageLogo}
-//         source={{ uri: 'https://logowik.com/content/uploads/images/gmail-new-icon5198.jpg' }}
-//       />
-//     </View>
-//     <View style={styles.signUpContainer}>
-//       <Text>Don't have an account? </Text>
-//       <TouchableOpacity onPress={handleOnPressSignup}>
-//         <Text style={styles.signUpText}>Sign up.</Text>
-//       </TouchableOpacity>
-//     </View>
-//   </View>
-// );
-// };
+      <Text style={[styles.text_footer, {
+                color: colors.text,
+                marginTop: 35
+            }]}>Password</Text>
+          <View style={styles.action}>
+                <Feather 
+                    name="lock"
+                    color={colors.text}
+                    size={20}
+                />
+        <TextInput
+            placeholder="Your Password"
+            placeholderTextColor="#666666"
+            style={[styles.textInput, {
+                color: colors.text
+            }]}
+            autoCapitalize="none"
+            value={password}
+            onChangeText={setPassword}
+        />
+        <Feather 
+            name="eye"
+            color="grey"
+            size={20}
+        />
+      </View>
 
-// const styles = StyleSheet.create({
+      <TouchableOpacity>
+          <Text style={{color: '#009387', marginTop:30, marginLeft:250}}>Forgot password?</Text>
+      </TouchableOpacity>
+      
+      <View style={styles.button}>
+                <TouchableOpacity
+                    style={styles.signIn}
+                    onPress={() => handleLogin(email, password)}
+                >
+                  <LinearGradient
+                      colors={['#A0E9FF', '#00A9FF']}
+                      style={styles.signIn}
+                  >
+                      <Text style={[styles.textSign, {
+                          color:'#fff'
+                      }]}>Login</Text>
+                  </LinearGradient>
+                </TouchableOpacity>
+
+            </View>
+
+            <Text style={styles.text}> Or login with</Text>
+
+            <View style={styles.imageContainer}>
+              <Image
+                style={styles.imageLogo}
+                source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png' }}
+              />
+              <Image
+                style={styles.imageLogo}
+                source={{ uri: 'https://logowik.com/content/uploads/images/gmail-new-icon5198.jpg' }}
+              />
+            </View>
+
+            <View style={styles.signUpContainer}>
+              <Text>Don't have an account? </Text>
+              <TouchableOpacity onPress={handleOnPressSignup}>
+                <Text style={styles.signUpText}>Sign up.</Text>
+              </TouchableOpacity>
+            </View>
+
+      </Animatable.View>
+  </View>
+);
+};
+
+const styles = StyleSheet.create({
 // container: {
 //   flex: 1,
 //   justifyContent: 'center',
 //   alignItems: 'center',
+//   backgroundColor: '#00A9FF'
 // },
+
+// header: {
+//   flex: 1,
+//   justifyContent: 'flex-end',
+//   paddingHorizontal: 20,
+//   paddingBottom: 50
+//       },
+// footer: {
+//   flex: 3,
+//   backgroundColor: '#fff',
+//   borderTopLeftRadius: 30,
+//   borderTopRightRadius: 30,
+//   paddingHorizontal: 20,
+//   paddingVertical: 30
+//       },
+// text_header: {
+//    color: '#fff',
+//           fontWeight: 'bold',
+//           fontSize: 30
+//       },
 // imageStyle: {
 //   width: 80,
 //   height: 80,
@@ -90,12 +179,12 @@
 //   alignSelf: 'center',
 //   marginTop: 80,
 // },
-// text: {
-//   alignSelf: 'center',
-//   marginTop: 20,
-//   fontSize: 25,
-//   fontWeight: 'bold',
-// },
+text: {
+  alignSelf: 'center',
+  marginTop: 20,
+  fontSize: 20,
+  fontWeight: 'bold',
+},
 // textInput: {
 //   height: 50,
 //   width: 300,
@@ -126,26 +215,26 @@
 //   color: 'white',
 //   alignSelf: 'center',
 // },
-// imageContainer: {
-//   flexDirection: 'row',
-//   justifyContent: 'center',
-//   alignItems: 'center',
-//   marginTop: 25,
-// },
-// imageLogo: {
-//   width: 50,
-//   height: 50,
-//   borderRadius: 25,
-//   margin: 10,
-// },
-// signUpContainer: {
-//   flexDirection: 'row',
-//   marginTop: 15,
-//   alignSelf: 'center',
-// },
-// signUpText: {
-//   color: 'blue',
-// },
+imageContainer: {
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: 10,
+},
+imageLogo: {
+  width: 35,
+  height: 35,
+  borderRadius: 25,
+  margin: 5,
+},
+signUpContainer: {
+  flexDirection: 'row',
+  marginTop: 15,
+  alignSelf: 'center',
+},
+signUpText: {
+  color: 'blue',
+},
 // forgotContainer: {
 //   alignItems: 'flex-end',
 //   marginRight: 25,
@@ -191,8 +280,117 @@
 //   marginTop:11,
 //   marginLeft:12,
 // },
-// })
-// export default Login;
+// text_footer: {
+//   color: '#05375a',
+//   fontSize: 18
+// },
+// action: {
+//   flexDirection: 'row',
+//   marginTop: 10,
+//   borderBottomWidth: 1,
+//   borderBottomColor: '#f2f2f2',
+//   paddingBottom: 5
+// },
+// actionError: {
+//   flexDirection: 'row',
+//   marginTop: 10,
+//   borderBottomWidth: 1,
+//   borderBottomColor: '#FF0000',
+//   paddingBottom: 5
+// },
+// textInput: {
+//   flex: 1,
+//   marginTop: Platform.OS === 'ios' ? 0 : -12,
+//   paddingLeft: 10,
+//   color: '#05375a',
+// },
+// errorMsg: {
+//   color: '#FF0000',
+//   fontSize: 14,
+// },
+// button: {
+//   alignItems: 'center',
+//   marginTop: 50
+// },
+// signIn: {
+//   width: '100%',
+//   height: 50,
+//   justifyContent: 'center',
+//   alignItems: 'center',
+//   borderRadius: 10
+// },
+// textSign: {
+//   fontSize: 18,
+//   fontWeight: 'bold'
+// }
+container: {
+  flex: 1, 
+  backgroundColor: '#00A9FF'
+},
+header: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingHorizontal: 20,
+    paddingBottom: 50
+},
+footer: {
+    flex: 3,
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingHorizontal: 20,
+    paddingVertical: 30
+},
+text_header: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 30
+},
+text_footer: {
+    color: '#05375a',
+    fontSize: 18
+},
+action: {
+    flexDirection: 'row',
+    marginTop: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f2f2f2',
+    paddingBottom: 5
+},
+actionError: {
+    flexDirection: 'row',
+    marginTop: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#FF0000',
+    paddingBottom: 5
+},
+textInput: {
+    flex: 1,
+    marginTop: -5,
+    paddingLeft: 10,
+    color: '#05375a',
+},
+errorMsg: {
+    color: '#FF0000',
+    fontSize: 14,
+},
+button: {
+    alignItems: 'center',
+    marginTop: 15
+},
+signIn: {
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10
+},
+textSign: {
+    fontSize: 18,
+    fontWeight: 'bold'
+}
+})
+export default Login;
 
 
 
@@ -237,7 +435,7 @@
 
 //     return (
 //       <View style={styles.container}>
-//           <StatusBar backgroundColor='#00A9FF' barStyle="light-content"/>
+//         <StatusBar backgroundColor='#00A9FF' barStyle="light-content"/>
 //         <View style={styles.header}>
 //             <Text style={styles.text_header}>Welcome!</Text>
 //         </View>
