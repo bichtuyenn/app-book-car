@@ -1,61 +1,39 @@
 import React,{useState} from 'react';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
-const conversations = [
-    {
-      id: 1,
-      name: 'Nam',
-      avatar: 'https://reactnative.dev/img/tiny_logo.png',
-      lastMessage: 'Xin chào!',
-    },
-    {
-      id: 2,
-      name: 'Phong',
-      avatar: 'https://proship.vn/wp-content/uploads/2022/05/nghia-tu-shipper-la-gi.jpg',
-      lastMessage: 'Chào bạn, bạn thế nào?',
-    },
-    {
-        id: 3,
-        name: 'Hung',
-        avatar: 'https://static.kinhtedothi.vn/images/upload/2021/12/25/b02c6ccd-18a2-4ce9-b07b-8426a3ac3ec7.jpg',
-        lastMessage: 'Bạn có cần giúp đỡ gì?',
-      },
-      {
-        id: 4,
-        name: 'Thuan',
-        avatar: 'https://airportcargo.vn/wp-content/uploads/2018/06/dich-vu-ship-chuyen-nghiep.jpg',
-        lastMessage: 'Mình đang tới nhé',
-      },
-      {
-        id: 5,
-        name: 'Tuan',
-        avatar: 'https://static1.cafeland.vn/cafeauto/hinh-anh/2021/07/09/158/image-20210709134457-1.png',
-        lastMessage: 'Bạn ra tới chưa?',
-      },
-      {
-        id: 6,
-        name: 'Chau',
-        avatar: 'https://nhanvietluanvan.com/wp-content/uploads/2023/05/Hinh-meo-con-cute.jpg',
-        lastMessage: 'ok chờ mình tí nhé!',
-      },
-    
-  ];
-  const Messages = ({ navigation }) => {
-    const [isChatSelected, setIsChatSelected] = useState(true);
-    const [isNotificationSelected, setIsNotificationSelected] = useState(false);
-   
- 
-    const nav = useNavigation();
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { useNavigation , useFocusEffect} from '@react-navigation/native';
+import Feather from 'react-native-vector-icons/Ionicons';
+import { Button } from 'react-native-paper';
 
-    useFocusEffect(() => {
+  const Messages = ({ navigation }) => {
+      const [isChatSelected, setIsChatSelected] = useState(true);
+      const [isNotificationSelected, setIsNotificationSelected] = useState(false);
+      const [day, setDay] = React.useState(new Date().toDateString());
+      const [number, setNumber] = React.useState('0');
+      const [text,  setText] = React.useState('');
+      const [expenses, setExpenses] =useState([]);
+
+      const handleSubmit = () => {
+        if ((number.trim() === '') || (text.trim() === '')) {
+          return;
+        }
+        const newExpense = { number, text, day }; // Create an object with the correct structure
+        setExpenses([...expenses, newExpense]); // Add the new expense object to the array
+        setNumber('0');
+        setText('');
+        navigation.navigate('Home', { expenses: [...expenses, newExpense] });
+      }
+      
+
+      const nav = useNavigation();
+      useFocusEffect(() => {
         setIsChatSelected(true);
         setIsNotificationSelected(false);
-    });
+      });
+
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Tin nhắn</Text>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
+           <TouchableOpacity
             style={[
               styles.button,
               isChatSelected ? styles.selectedButton : {},
@@ -65,7 +43,7 @@ const conversations = [
               setIsNotificationSelected(false);
             }}
           >
-            <Text style={[styles.buttonText, isChatSelected ? styles.selectedText : {}]}>Trò Chuyện</Text>
+            <Text style={[styles.buttonText, isChatSelected ? styles.selectedText : {}]}>Chi tiêu</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
@@ -75,27 +53,44 @@ const conversations = [
             onPress={() => {
               setIsChatSelected(false);
               setIsNotificationSelected(true);
-              navigation.navigate('NotificationList');
+              navigation.navigate('Notification');
             }}
           >
-            <Text style={[styles.buttonText, isNotificationSelected ? styles.selectedText : {}]}>Thông Báo</Text>
+            <Text style={[styles.buttonText, isNotificationSelected ? styles.selectedText : {}]}>Thu nhập</Text>
           </TouchableOpacity>
         </View>
         {isChatSelected ? (
-          <FlatList
-            data={conversations}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <View style={styles.chatItem}>
-                <Image source={{ uri: item.avatar }} style={styles.avatar} />
-                <View style={styles.textContainer}>
-                  <Text style={styles.name}>{item.name}</Text>
-                  <Text style={styles.lastMessage}>{item.lastMessage}</Text>
-                </View>
-              </View>
-            )}
-          />
+        <View style= {styles.addContainer} >
+            <View style = {styles.expense}>
+                <Text style={styles.text}>Tiền chi</Text>
+                <TextInput
+                    placeholder='000'
+                    value={number}
+                    style={styles.input}
+                    onChangeText={(number) => setNumber(number)}
+                    keyboardType='numeric'
+                />
+            </View>
+            <View style={styles.expense}>
+                <Text style={styles.text}>Ngày</Text>
+                <Text style= {styles.dateTimeNow & styles.input} >{day}</Text>
+            </View>
+            <View style={styles.expense}>
+                <Text style={styles.text}>Ghi chú</Text>
+                <TextInput
+                      placeholder='Typing note'
+                      value={text}
+                      onChangeText={(text) => setText(text)}
+                      style= {styles.input}
+                />
+            </View>
+        </View>
         ) : null}
+          <Button 
+              labelStyle={{ color: '#ffffff' }}
+              style= {styles.buttonAdd}
+              onPress={handleSubmit}
+              >Nhập khoản chi</Button>
       </View>
     );
   };
@@ -117,7 +112,7 @@ const conversations = [
     },
     button: {
       flex: 1,
-      borderRadius: 20,
+      borderRadius: 10,
       padding: 10,
       marginRight: 10,
       marginTop: 20,
@@ -153,7 +148,50 @@ const conversations = [
     },
     lastMessage: {
       fontSize: 16,
+
     },
+    addContainer: {
+        flex:1,
+        backgroundColor:"#B4B4B3"
+    },
+    icon:{
+        borderRadius: 20,
+        backgroundColor: '#F3B664',
+        padding: 5
+    },
+    dateTimeNow:{
+        padding: 7,
+        backgroundColor: '#B4B4B3',
+        borderRadius: 10,
+    },
+    addContainer: {
+        padding: 10,
+        borderRadius: 10,
+        marginLeft: 20,
+        marginRight: 20,
+        backgroundColor: '#ffffff'
+    },
+    expense: {
+        flexDirection: 'row',
+        alignContent: 'center',
+        alignItems: 'center',
+        marginBottom: 5,
+    },
+    text:{
+      marginRight: 10,
+    },
+    input:{
+      textAlign: 'center'
+    },
+    buttonAdd:{
+      backgroundColor: '#00A9FF',
+      marginTop: 10,
+      marginLeft: 20,
+      marginRight: 20,
+      padding: 2,
+      borderRadius: 15,
+    }
+  
   });
   
   export default Messages;

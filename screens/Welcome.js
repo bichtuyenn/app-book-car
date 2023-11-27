@@ -23,7 +23,7 @@ const Welcome = ({navigation}) => {
             <Animatable.Image 
             animation="bounceIn"
             duraton="1500"
-            source={require('../assets/driving.png')}
+            source={require('../assets/logo.png')}
             style={styles.logo}
             resizeMode="stretch"
             />
@@ -36,7 +36,7 @@ const Welcome = ({navigation}) => {
         >
             <Text style={[styles.title, {
                 color: colors.text
-            }]}>Booking car everywhere!</Text>
+            }]}>Expense management easily!</Text>
             <Text style={styles.text}>Log in with account</Text>
             <View style={styles.button}>
             <TouchableOpacity onPress={()=>navigation.navigate('Login')}>
@@ -78,21 +78,23 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       borderTopLeftRadius: 30,
       borderTopRightRadius: 30,
-      paddingVertical: 50,
-      paddingHorizontal: 30
+      paddingVertical:30,
+      paddingHorizontal: 20
   },
   logo: {
-      width: height_logo,
-      height: height_logo
+    //   width: height_logo,
+    //   height: height_logo
+    width: 450,
+    height: 450
   },
   title: {
       color: '#05375a',
-      fontSize: 30,
+      fontSize: 26,
       fontWeight: 'bold'
   },
   text: {
       color: 'grey',
-      marginTop:5
+      marginTop:10
   },
   button: {
       alignItems: 'flex-end',
